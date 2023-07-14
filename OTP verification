@@ -1,0 +1,36 @@
+import random
+import tkinter as tk
+
+
+class OTPVerificationApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("OTP Verification")
+        self.master.geometry("300x150")
+
+        self.otp = self.generate_otp()
+        self.otp_label = tk.Label(self.master, text="Enter OTP:")
+        self.otp_label.pack()
+
+        self.otp_entry = tk.Entry(self.master)
+        self.otp_entry.pack()
+
+        self.verify_button = tk.Button(self.master, text="Verify", command=self.verify_otp)
+        self.verify_button.pack()
+
+    def generate_otp(self):
+        otp = random.randint(1000, 9999)
+        return otp
+
+    def verify_otp(self):
+        user_otp = self.otp_entry.get()
+        if user_otp == str(self.otp):
+            tk.messagebox.showinfo("Success", "OTP Verified!")
+        else:
+            tk.messagebox.showerror("Error", "Invalid OTP!")
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = OTPVerificationApp(root)
+    root.mainloop()
